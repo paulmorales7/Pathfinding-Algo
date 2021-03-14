@@ -319,6 +319,7 @@ fillHex(canvasID, center, fillColor) {
 
 handleClick(){
 
+    
 }
 
 drawObstacles(){
