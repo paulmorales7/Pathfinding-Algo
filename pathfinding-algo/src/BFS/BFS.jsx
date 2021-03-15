@@ -65,18 +65,19 @@ this.setState({
             let currentDistanceLine = nextState.currentDistanceLine;
             for(let i = 0; i <= currentDistanceLine.length - 2; i++){
                 if (i == 0){
-                    this.drawHex(this.canvasInteraction, this.Point(currentDistanceLine[i].x, currentDistanceLine[i].y), "black", "blue");
+                    this.drawHex(this.canvasInteraction, this.Point(currentDistanceLine[i].x, currentDistanceLine[i].y), "black", "blue", "blue");
                 }
             else {
-                this.drawHex(this.canvasInteraction, this.Point(currentDistanceLine[i].x, currentDistanceLine[i].y), "black", "black" );
+                this.drawHex(this.canvasInteraction, this.Point(currentDistanceLine[i].x, currentDistanceLine[i].y), "black", "black", "black");
             }
             }
             nextState.obstacles.map((l) => {
-                const {p,j,s,x,y} = JSON.parse(l);
+                // const {p,j,s,x,y} = JSON.parse(l);
+                const {p,j,s,x,y} = l;
                 this.drawHex(this.canvasInteraction, this.Point(x,y), 1, "black", "black")
             })
 
-            this.drawHex(this.canvasInteraction, this.Point(x,y), 1, "black", "red" );
+            this.drawHex(this.canvasInteraction, this.Point(x,y), 1, "black", "black" );
             return true;
         }
         return false;
@@ -135,6 +136,10 @@ this.setState({
                 if((x > hexWidth/2 && x < canvasWidth - hexWidth/2) && (y > hexHeight/2 && y < canvasHeight - hexHeight/2)) {
                     this.drawHex(this.canvasHex, this.Point(x,y), "black", 1, "grey");
                     
+                    var bottomH = JSON.stringify(this.Hex(p-q, j, -(p-q) - j));
+                    if(!this.state.obstacles.includes(bottomH)) {
+                        hexPathMap.push(bottomH)
+                    }
                 }
             }
         }
@@ -153,6 +158,10 @@ this.setState({
                 if((x > hexWidth/2 && x < canvasWidth - hexWidth/2) && (y > hexHeight/2 && y < canvasHeight - hexHeight/2)){
                     this.drawHex(this.canvasHex, this.Point(x, y),  "black", 1, "grey");
            
+                    var topH = JSON.stringify(this.Hex(p+n, j, -(p+n) - j));
+                    if(!this.state.obstacles.includes(topH)) {
+                        hexPathMap.push(topH)
+                    }
                 }   
             }          
         }
@@ -324,7 +333,8 @@ handleClick(){
 
 drawObstacles(){
    this.state.obstacles.map((l) =>{
-       const {p, j, s} = JSON.parse(l);
+       console.log('L', l)
+       const {p, j, s} = l;
        const {x, y} = this.hexToPixel(this.Hex(p,j,s));
        this.drawHex(this.canvasHex, this.Point(x,y), 1, "black", "black")
    })
@@ -347,7 +357,7 @@ breadthFirstSearch(playerPosition) {
         var current = frontier.shift();
         let arr = this.getNeighbors(current);
         arr.map((l) => {
-            if(!cameFrom.hasownProperty(JSON.stringify(l)) && this.state.hexPath.includes(JSON.stringify(l))) {
+            if(!cameFrom.hasownProperty(JSON.stringify(l)) && this.state.hexPathMap.includes(JSON.stringify(l))) {
                 frontier.push(l);
                 cameFrom[JSON.stringify(l)] = JSON.stringify(current);
             }
