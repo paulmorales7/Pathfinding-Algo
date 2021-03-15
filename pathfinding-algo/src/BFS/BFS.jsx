@@ -165,6 +165,12 @@ this.setState({
                 }   
             }          
         }
+
+        hexPathMap = [].concat(hexPathMap);
+        this.setState(
+            {hexPathMap: hexPathMap},
+            this.breadthFirstSearchCallback = () => this.breadthFirstSearch(this.state.playerPosition)
+        )
     }
 
     hexToPixel(h){
