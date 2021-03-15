@@ -3,7 +3,7 @@ import '../BFS/BFS.css'
 
 
 
-var canvasObstacles = ['{"p":1, "j":-9, "s":-1}', '{"p"2, "j":-9, "s":-1}']
+var canvasObstacles = [{"p":-3, "j":-9, "s":-1}, {"p":-2, "j":-9, "s":-1}, {"p":-1, "j":-9, "s":-1}, {"p":0, "j":-9, "s":-1}, {"p":1, "j":-9, "s":-1}, {"p":2, "j":-9, "s":-1}, {"p":3, "j":-9, "s":-1}, {"p":4, "j":-9, "s":-1}, {"p":5, "j":-9, "s":-1}, {"p":6, "j":-9, "s":-1}, {"p":7, "j":-9, "s":-1},{"p":8, "j":-9, "s":-1}, {"p":9, "j":-9, "s":-1}, {"p":10, "j":-9, "s":-1}, {"p":11, "j":-9, "s":-1}, {"p":12, "j":-9, "s":-1}, {"p":13, "j":-9, "s":-1}, {"p":14, "j":-9, "s":-1}, {"p":15, "j":-9, "s":-1},  {"p":16, "j":-9, "s":-1},  {"p":17, "j":-9, "s":-1},  {"p":18, "j":-9, "s":-1}];
 
 
 
@@ -73,9 +73,8 @@ this.setState({
             }
             }
             nextState.obstacles.map((l) => {
-                // const {p,j,s,x,y} = JSON.parse(l);
                 const {p,j,s,x,y} = l;
-                this.drawHex(this.canvasInteraction, this.Point(x,y), 1, "black", "black")
+                this.drawHex(this.canvasInteraction, this.Point(x,y), 1, "black", "black",)
             })
 
             this.drawHex(this.canvasInteraction, this.Point(x,y), 1, "black", "black" );
@@ -341,7 +340,7 @@ handleClick(){
 
 drawObstacles(){
    this.state.obstacles.map((l) =>{
-       console.log('L', l)
+       
        const {p, j, s} = l;
        const {x, y} = this.hexToPixel(this.Hex(p,j,s));
        this.drawHex(this.canvasHex, this.Point(x,y), 1, "black", "black")
