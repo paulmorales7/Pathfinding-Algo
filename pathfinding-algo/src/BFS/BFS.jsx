@@ -52,6 +52,7 @@ this.setState({
         this.canvasView.height = canvasHeight;
 
         this.getCanvasPosition(this.canvasInteraction);
+        this.drawHex(this.canvasInteraction, this.Point(this.state.playerPosition.x, this.state.playerPosition.y), 1, "black", "grey")
         this.drawHexes()
         this.drawObstacles();
     }
@@ -125,6 +126,7 @@ this.setState({
         let pRightSide = Math.round(canvasWidth - hexOrigin.x) / hexWidth * 2;
         let jTopSide = Math.round(hexOrigin.y / (hexHeight/2));
         let jBottomSide = Math.round((canvasHeight - hexOrigin.y)/ (hexHeight/2));
+        var hexPathMap = [];
 
         var q = 0;
         for(let j = 0; j <= jBottomSide; j++){
@@ -363,12 +365,16 @@ breadthFirstSearch(playerPosition) {
         var current = frontier.shift();
         let arr = this.getNeighbors(current);
         arr.map((l) => {
-            if(!cameFrom.hasownProperty(JSON.stringify(l)) && this.state.hexPathMap.includes(JSON.stringify(l))) {
+            if(!cameFrom.hasOwnProperty(JSON.stringify(l)) && this.state.hexPathMap.includes(JSON.stringify(l))) {
                 frontier.push(l);
                 cameFrom[JSON.stringify(l)] = JSON.stringify(current);
             }
         })
     }
+cameFrom = Object.assign({}, cameFrom);
+    this.setState({
+        cameFrom: cameFrom
+    })
 }
 
 
