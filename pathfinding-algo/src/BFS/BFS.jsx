@@ -49,6 +49,7 @@ this.setState({
         this.canvasInteraction.height = canvasHeight;
 
         this.canvasView.width = canvasWidth;
+        this.canvasView.height = canvasHeight;
 
         this.getCanvasPosition(this.canvasInteraction);
         this.drawHexes()
@@ -319,7 +320,6 @@ fillHex(canvasID, center, fillColor) {
 
 handleClick(){
 
-    
 }
 
 drawObstacles(){
@@ -337,6 +337,22 @@ getNeighbors(h) {
         arr.push(this.Hex(p, j, s));
     }
     return arr;
+}
+
+breadthFirstSearch(playerPosition) {
+    var frontier = [playerPosition];
+    var cameFrom = {};
+    cameFrom[JSON.stringify(playerPosition)] = JSON.stringify(playerPosition);
+    while (frontier.length != 0) {
+        var current = frontier.shift();
+        let arr = this.getNeighbors(current);
+        arr.map((l) => {
+            if(!cameFrom.hasownProperty(JSON.stringify(l)) && this.state.hexPath.includes(JSON.stringify(l))) {
+                frontier.push(l);
+                cameFrom[JSON.stringify(l)] = JSON.stringify(current);
+            }
+        })
+    }
 }
 
 
