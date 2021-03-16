@@ -68,6 +68,7 @@ this.setState({
         this.drawHex(this.canvasInteraction, this.Point(this.state.playerPosition.x, this.state.playerPosition.y), 1, "black", "grey")
         this.drawHexes()
         this.drawObstacles();
+        
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -76,10 +77,23 @@ this.setState({
             const { canvasWidth, canvasHeight } = this.state.canvasSize;
             const ctx = this.canvasInteraction.getContext("2d");
             ctx.clearRect(0,0, canvasWidth, canvasHeight);
-            let currentDistanceLine = nextState.currentDistanceLine;
             this.drawPath();
-            
+
             return true;
+    }
+    if(nextState.cameFrom !== this.state.cameFrom) {
+        const { canvasWidth, canvasHeight } = this.state.canvasSize;
+        const ctx = this.canvasInteraction.getContext("2d");
+        ctx.clearRect(0,0, canvasWidth, canvasHeight);
+        
+        for (let l in nextState.cameFrom) {
+            const { p, j, s } = l;
+            const { x, y } = this.hexToPixel(this.Hex(p, j));
+            this.drawHex(this.canvasView, this.Point(x, y), 1, "black", "grey");
+            var from = JSON.parse(nextState.cameFrom[l]);
+            var fromCoord = this.hexToPixel(this.Hex(from.p, from.j));
+        }
+        return true
     }
     return false
 }
@@ -214,7 +228,7 @@ handleMouseMove(e) {
     
     let playerPosition = this.state.playerPosition;
     this.getDistanceLine(this.Hex(0,0,0), this.Hex(p, j, s))
-    console.log(this.state.currentDistanceLine)
+    this.getPath(this.Hex(playerPosition.p, playerPosition.j, playerPosition.s), this.Hex(p, j, s));
 
     if((x > hexWidth / 2 && x < canvasWidth - hexWidth / 2) && (y > hexHeight / 2 && y < canvasHeight - hexHeight / 2)){
         this.setState({
@@ -402,7 +416,7 @@ drawPath() {
     for(let i = 0; i <= path.length -1; i++) {
         const { p, j } = JSON.parse(path[i]);
         const { x, y } = this.hexToPixel(this.Hex(p, j));
-        this.drawHex(this.canvasInteraction, this.Point(x, y), 1, "black", "#05b9f5")
+        this.drawHex(this.canvasInteraction, this.Point(x, y), 1, "black", "#0000b3")
     }
 }
 
