@@ -15,7 +15,7 @@ var canvasObstacles = [{"p":-3, "j":-9, "s":-1}, {"p":-2, "j":-9, "s":-1}, {"p":
 {"p":-3, "j":-6, "s":-8}, {"p":-3, "j":-7, "s":-8}, {"p":-3, "j":-5, "s":-8}, {"p":-3, "j":-4, "s":-8}, {"p":-3, "j":-3, "s":-8}, {"p":-3, "j":-6, "s":-8}, {"p":-3, "j":-7, "s":-8}, {"p":-3, "j":-5, "s":-8}, {"p":-3, "j":-4, "s":-8}, {"p":-3, "j":-3, "s":-8},  
 {"p":0, "j":-5, "s":-9}, {"p":0, "j":-6, "s":-9}, {"p":0, "j":-7, "s":-9}, {"p":0, "j":-5, "s":-9}, {"p":0, "j":-6, "s":-9}, {"p":0, "j":-7, "s":-9},   
 {"p":7, "j":-1, "s":-10}, {"p":8, "j":-2, "s":-10}, {"p":9, "j":-3, "s":-10}, {"p":10, "j":-4, "s":-10}, {"p":10, "j":-3, "s":-10}, {"p":10, "j":-2, "s":-10}, {"p":10, "j":-1, "s":-10}, {"p":9, "j":0, "s":-10}, {"p":10, "j":0, "s":-10},{"p":6, "j":0, "s":-10}, {"p":7, "j":0, "s":-10}, {"p":6, "j":1, "s":-10}, {"p":9, "j":1, "s":-10}, {"p":7, "j":-1, "s":-10}, {"p":8, "j":-2, "s":-10}, {"p":9, "j":-3, "s":-10}, {"p":10, "j":-4, "s":-10}, {"p":10, "j":-3, "s":-10}, {"p":10, "j":-2, "s":-10}, {"p":10, "j":-1, "s":-10}, {"p":9, "j":0, "s":-10}, {"p":10, "j":0, "s":-10},{"p":6, "j":0, "s":-10}, {"p":7, "j":0, "s":-10}, {"p":6, "j":1, "s":-10}, {"p":9, "j":1, "s":-10}, 
-      
+
 ];
 
 
@@ -77,24 +77,12 @@ this.setState({
             const ctx = this.canvasInteraction.getContext("2d");
             ctx.clearRect(0,0, canvasWidth, canvasHeight);
             let currentDistanceLine = nextState.currentDistanceLine;
-            for(let i = 0; i <= currentDistanceLine.length - 2; i++){
-                if (i == 0){
-                    this.drawHex(this.canvasInteraction, this.Point(currentDistanceLine[i].x, currentDistanceLine[i].y), "black", "blue", "blue");
-                }
-            else {
-                this.drawHex(this.canvasInteraction, this.Point(currentDistanceLine[i].x, currentDistanceLine[i].y), "black", "black", "black");
-            }
-            }
-            nextState.obstacles.map((l) => {
-                const {p,j,s,x,y} = l;
-                this.drawHex(this.canvasInteraction, this.Point(x,y), 1, "black", "black",)
-            })
-
-            this.drawHex(this.canvasInteraction, this.Point(x,y), 1, "black", "black" );
+            this.drawPath();
+            
             return true;
-        }
-        return false;
     }
+    return false
+}
 
     getHexCornerCoord(center, i) {
     let angle_deg = 60 * i + 30;
@@ -388,6 +376,36 @@ cameFrom = Object.assign({}, cameFrom);
         cameFrom: cameFrom
     })
 }
+
+getPath(start, current) { 
+const { cameFrom } = this.state;
+start = JSON.stringify(start);
+current = JSON.stringify(current);  
+
+if(cameFrom[current] != undefined) {
+    var path = [current];
+    while (current != start) {
+        current = cameFrom[current];
+        path.push(current);
+    }
+    path = [].concat(path);
+this.setState({
+    path: path
+})
+}
+
+} 
+
+drawPath() {
+    let path = this.state.path;
+    
+    for(let i = 0; i <= path.length -1; i++) {
+        const { p, j } = JSON.parse(path[i]);
+        const { x, y } = this.hexToPixel(this.Hex(p, j));
+        this.drawHex(this.canvasInteraction, this.Point(x, y), 1, "black", "#05b9f5")
+    }
+}
+
 
 
     render() {
