@@ -2,7 +2,7 @@
 
 body {
     background: rgb(43, 43, 43);
-    color: white;
+    color: gainsboro;
     font-family: 'Poppins';
     
   }
@@ -22,15 +22,15 @@ body {
 
   .top p{
       width: 540px;
-      font-size: 12px;
+      font-size: 16px;
       font-weight: bold;
   }
 
   .top h3{
-      font-size: 15px;
+      font-size: 18px;
   }
 
   .howTo li{
-      font-size: 12px;
+      font-size: 16px;
   }
  
