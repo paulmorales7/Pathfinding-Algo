@@ -430,7 +430,7 @@ drawArrow(fromx, fromy, tox, toy){
               <h3>How to use:</h3>
              <ul className='howTo'>
                  <li> - Drag your mouse over the canvas to control the path</li>
-                 <li> - Click on any hexagon to make that your starting position</li>
+                 <li> - Click at any time to make your current position your starting position</li>
              </ul>
           </div>
         <canvas ref={canvasHex => this.canvasHex = canvasHex }></canvas>
