@@ -385,7 +385,7 @@ drawPath() {
   for(let i =0; i<= path.length - 1; i++) {
     const { q, r } = JSON.parse(path[i]);
     const { x, y } = this.hexToPixel(this.Hex(q, r));
-    this.drawHex(this.canvasInteraction, this.Point(x, y), 1, "black", "#05b9f5");
+    this.drawHex(this.canvasInteraction, this.Point(x, y), 1, "black", "#000080");
   }
 }
 
@@ -406,10 +406,10 @@ drawArrow(fromx, fromy, tox, toy){
     ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
     ctx.lineTo(tox, toy);
     ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
-    ctx.strokeStyle = "#05b9f5";
+    ctx.strokeStyle = "blue";
     ctx.lineWidth = 5;
     ctx.stroke();
-    ctx.fillStyle = "#05b9f5";
+    ctx.fillStyle = "white";
     ctx.fill();
 }
 
