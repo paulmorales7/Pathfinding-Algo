@@ -20,7 +20,7 @@ https://bfs-algorithm.herokuapp.com/
   # Usage
  Start using the app by hovering over the canvas with your mouse to take control of the path line. You can take the path anywhere on the canvas and it will continously find the quickest path from the start point to wherever you take it. You can click at any moment to make the current position your new starting point.
   # License
-  License selected displayed in description. You have selected
+  License selected displayed in description.
   apache,MIT,Boost,BSD
   # Contributing
   Paul Morales
