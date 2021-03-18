@@ -1,14 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 body {
-    background: #ece7e7;
+    background: rgb(43, 43, 43);
+    color: white;
+    font-family: 'Poppins';
+    
   }
   
   canvas {
     position: absolute;
-    left: 0;
+    left:0;
   }
 
   
   .top nav ul{
       display: flex;
-      justify-content: space-between;
+      float: right;
+      list-style-type: none;
+      font-size: 80px;
   }
+
+  .top p{
+      width: 540px;
+      font-size: 12px;
+      font-weight: bold;
+  }
+
+  .top h3{
+      font-size: 15px;
+  }
+
+  .howTo li{
+      font-size: 12px;
+  }
+ 

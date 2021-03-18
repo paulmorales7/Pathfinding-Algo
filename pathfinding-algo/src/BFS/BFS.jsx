@@ -427,12 +427,19 @@ drawArrow(fromx, fromy, tox, toy){
       <div className="BFS">
           <div className='top'>
               <nav>
+                 
                   <ul>
-                      <li>Breadth First Search</li>
                       <li> <a href='https://github.com/paulmorales7/Pathfinding-Algo.git'><FaGithub/></a></li>
                       <li> <a href='https://www.linkedin.com/in/paul-morales-9a9571189/'><FaLinkedin/></a></li>
                   </ul>
               </nav>
+              <h1>Breadth First Search Algorithm</h1>
+              <p>Welcome! Check out this simple to use pathfinding application that allows you to visualize the power of the Breadth First Search Algorithm. Note how it is finding the quickest path from the starting point to your destination every time.</p>
+              <h3>How to use:</h3>
+             <ul className='howTo'>
+                 <li>Drag your mouse over the canvas to control the path</li>
+                 <li>Click on any hexagon to make that your starting position</li>
+             </ul>
           </div>
         <canvas ref={canvasHex => this.canvasHex = canvasHex }></canvas>
         <canvas ref={canvasCoordinates => this.canvasCoordinates = canvasCoordinates }></canvas>
